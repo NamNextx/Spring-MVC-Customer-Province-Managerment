@@ -19,7 +19,7 @@
             <th>edit</th>
             <th>delete</th>
         </tr>
-        <tr th:each="customer,iterStat : ${customerList}" th:class="${iterStat.odd}? 'odd'">
+        <tr th:each="customer,iterStat : ${customers}" th:class="${iterStat.odd}? 'odd'">
             <td th:text="${customer.id}"></td>
             <td th:text="${customer.getFirstName()}"></td>
             <td th:text="${customer.getLastName()}"></td>
@@ -28,6 +28,19 @@
             <td><a th:href="@{/delete-customer/__${customer.id}__}">Delete</a></td>
         </tr>
     </table>
+</div>
+
+<h1>Customers</h1>
+<form>
+    Search by first name:
+    <input name="s" type="text"/>
+    <input type="submit" value="Search"/>
+</form><br/>
+
+<div>
+    <a th:href="@{'/customers'(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}">Previous</a>
+    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+    <a th:href="@{'/customers'(page=${customers.number + 1})}" th:if="${customers.hasNext()}">Next</a>
 </div>
 </body>
 </html>
